@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://ch560xuhx432e"]
+
+[ext_resource type="PackedScene" uid="uid://b2xlsj5u1yhqv" path="res://01_Prefabs/00_Entities/player.tscn" id="1_5hpx1"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5hpx1"]
+sky_top_color = Color(0.58124244, 0.30822355, 0.71084, 1)
+sky_horizon_color = Color(0.6477042, 0.5992563, 0.7005515, 1)
+ground_bottom_color = Color(0.11155725, 0.1907844, 0.19334891, 1)
+ground_horizon_color = Color(0.6477042, 0.5992563, 0.7005515, 1)
+
+[sub_resource type="Sky" id="Sky_ugfmv"]
+sky_material = SubResource("ProceduralSkyMaterial_5hpx1")
+
+[sub_resource type="Environment" id="Environment_ldt73"]
+background_mode = 2
+sky = SubResource("Sky_ugfmv")
+sky_rotation = Vector3(0, 1.5707964, 0)
+tonemap_mode = 2
+ssao_enabled = true
+glow_intensity = 0.4
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_hhtbj"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_nr4eh"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_5hpx1"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[node name="Level_Test" type="Node3D" unique_id=189961200]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1262240385]
+environment = SubResource("Environment_ldt73")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1528242952]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2834749, 8.375769, 18.780582)
+light_energy = 3.217
+light_indirect_energy = 1.02
+light_volumetric_fog_energy = 1.475
+light_specular = 0.0
+
+[node name="Floor_" type="MeshInstance3D" parent="." unique_id=1365678388]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, 0)
+mesh = SubResource("PlaneMesh_hhtbj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor_" unique_id=1830588843]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor_/StaticBody3D" unique_id=105075020]
+shape = SubResource("ConcavePolygonShape3D_nr4eh")
+
+[node name="Wall_" type="MeshInstance3D" parent="." unique_id=1710432426]
+transform = Transform3D(5, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1, -5)
+mesh = SubResource("PlaneMesh_hhtbj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall_" unique_id=1421030982]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall_/StaticBody3D" unique_id=27946048]
+shape = SubResource("ConcavePolygonShape3D_5hpx1")
+
+[node name="Wall_2" type="MeshInstance3D" parent="." unique_id=139939309]
+transform = Transform3D(-2.1855695e-07, 1, -4.3711385e-08, 0, -4.3711385e-08, -1, -5, -4.371139e-08, 1.9106855e-15, -5, 1, 0)
+mesh = SubResource("PlaneMesh_hhtbj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall_2" unique_id=1979141816]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall_2/StaticBody3D" unique_id=643362365]
+shape = SubResource("ConcavePolygonShape3D_5hpx1")
+
+[node name="Player" parent="." unique_id=815683918 instance=ExtResource("1_5hpx1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16134548, 0.11879997, -0.45036983)
